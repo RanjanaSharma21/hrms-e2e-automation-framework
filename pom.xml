@@ -9,9 +9,166 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <!-- Selenium Java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.43.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Cucumber Java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.34.3</version>
+        </dependency>
+
+        <!-- Cucumber JUnit Engine -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.34.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Core Apache POI -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+        <!-- Apache POI OOXML -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+        <!-- Apache Commons IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.22.0</version>
+        </dependency>
+
+        <!-- Extent Reports Grasshopper Adapter -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.14.0</version>
+        </dependency>
+
+        <!-- Lombok Dependency -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Explicitly managing the compiler plugin to map Lombok correctly -->
+            <!-- maven-compiler-plugin is responsible for compiling the raw .java source code
+             into executable .class bytecode. It manages Annotation Processors (like Lombok).
+             It acts as a bridge that tells the Java compiler how to read Lombok tags (like @Data or @Getter)
+             and generate the underlying Java code before building the project.
+             It basically compiles the code (- with Lombok). -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.42</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+
+
+            <!-- SUREFIRE (Runs/Executes the actual tests) -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!--
+                    <includes>
+                        Tells Maven to automatically find and execute your Cucumber Test Runner
+                        <include>**/TestRunner.java</include>
+                        <include>**/LoginRunner.java</include>
+                        <include>**/AddEmployeeRunner.java</include>
+                         <include>**/SearchEmployeeRunner.java</include>
+                    </includes>
+                     Optional: Prevents Maven build from completely failing if a single test fails -->
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+
+
+
+            <!-- plugin from maven-cucumber-reporting Public repository
+            https://github.com/damianszczepanik/maven-cucumber-reporting
+            from the guy named damianszczepanik
+            for attaching screenshot to the report-->
+
+
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.8.5</version>
+
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+
+                        <configuration>
+                            <projectName>Cucumber-AddEmp-With-Login-Validation</projectName>
+
+                            <skip>false</skip>
+
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+
+                            <inputDirectory>${project.build.directory}/jsonReports</inputDirectory>
+
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
+
+                            <checkBuildResult>false</checkBuildResult>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
