@@ -1,4 +1,4 @@
 package pages;
 
-public class AddProfilePicturePage {
+public class AddProfilePicturePage extends BasePage {
 }

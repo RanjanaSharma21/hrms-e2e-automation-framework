@@ -1,4 +1,4 @@
 package pages;
 
-public class UpdatePersonalDetailPage {
+public class UpdatePersonalDetailPage extends BasePage {
 }

@@ -1,4 +1,4 @@
 package pages;
 
-public class AddEmployeePage {
+public class AddEmployeePage extends BasePage {
 }
