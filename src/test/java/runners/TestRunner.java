@@ -8,7 +8,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/",
+        features = {
+                "src/test/resources/features/1AddEmployee.feature",
+                "src/test/resources/features/2SearchEmployee.feature",
+                "src/test/resources/features/3AddUsername.feature",
+                "src/test/resources/features/4UpdatePersonalDetail.feature",
+                "src/test/resources/features/5UpdateContactDetail.feature",
+                "src/test/resources/features/6AddProfilePicture.feature",
+                "src/test/resources/features/7DeleteEmployee.feature"
+        },
         glue = "steps",
         plugin = {
                 "pretty",
@@ -19,14 +27,17 @@ import org.junit.runner.RunWith;
                 "rerun:target/failed.txt"
         },
         dryRun = false,
-        tags = "@login"
-        //tags = "@addemp",
-        //tags = "@adduser",
-        //tags = "@addcontact",
-        //tags = "@addpersonal",
-        //tags = "@addprofile",
-        //tags = "@adddependenats",
+
+        //tags = "  @addpersonal"
+        //tags = "@delemp"
+        //tags = "@addcontact"
+        tags = "@addemp1 or @delemp" // @adduser1" // or  @addpersonal1  or @addcontact or @addprofile or @searchemp"
+        //tags = "@addcontact"
+        //tags = "@addpersonal"
+        //tags = "@addprofile"
+        //tags = "@adddependenats"
         //tags = "@searchemp"
+
 
 )
 

@@ -13,6 +13,7 @@ public class PageInitializer {
     public static SearchEmployeePage searchEmployeePage;
     public static UpdateContactDetailPage updateContactDetailPage;
     public static UpdatePersonalDetailPage updatePersonalDetailPage;
+    public static DeleteEmployeePage deleteEmployeePage;
 
     public static void initPageElements() {
 
@@ -25,5 +26,6 @@ public class PageInitializer {
         searchEmployeePage = new SearchEmployeePage();
         updateContactDetailPage = new UpdateContactDetailPage();
         updatePersonalDetailPage = new UpdatePersonalDetailPage();
+        deleteEmployeePage = new DeleteEmployeePage();
     }
 }

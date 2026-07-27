@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>groupProjectB26</artifactId>
+    <artifactId>hrms-e2e-automation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.43.0</version>
+            <version>4.46.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -80,6 +80,13 @@
             <version>1.18.42</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.11.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -116,16 +123,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <!--
                     <includes>
-                        Tells Maven to automatically find and execute your Cucumber Test Runner
-                        <include>**/TestRunner.java</include>
-                        <include>**/LoginRunner.java</include>
-                        <include>**/AddEmployeeRunner.java</include>
-                         <include>**/SearchEmployeeRunner.java</include>
+                        <include>**/*TestRunner.java</include>
                     </includes>
-                     Optional: Prevents Maven build from completely failing if a single test fails -->
-                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
 
@@ -140,34 +140,38 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.8.5</version>
+                <version>5.7.8</version>
 
                 <executions>
                     <execution>
-                        <id>execution</id>
+                        <id>cucumber-report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
 
                         <configuration>
-                            <projectName>Cucumber-AddEmp-With-Login-Validation</projectName>
+                            <projectName>hrms-e2e-automation-framework</projectName>
 
-                            <skip>false</skip>
+                            <outputDirectory>
+                                ${project.build.directory}/cucumber-html-reports
+                            </outputDirectory>
 
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-
-                            <inputDirectory>${project.build.directory}/jsonReports</inputDirectory>
+                            <inputDirectory>
+                                ${project.build.directory}
+                            </inputDirectory>
 
                             <jsonFiles>
-                                <param>**/*.json</param>
+                                <param>cucumber.json</param>
                             </jsonFiles>
 
                             <checkBuildResult>false</checkBuildResult>
+
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

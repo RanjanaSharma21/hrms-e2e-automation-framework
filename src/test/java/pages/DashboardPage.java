@@ -8,11 +8,14 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "div.oxd-topbar-header")
     public WebElement dashboardHeader;
 
-    //@FindBy(xpath = "//div[contains(@class, 'oxd-topbar-header')]")
-    //public WebElement dashboardHeader;
+    @FindBy(xpath = "//a[contains(@class, 'oxd-main-menu-item') and contains(@href, 'viewMyDetails') and .//span[text()='My Info']]")
+    public WebElement dashboardPageMyInfo;
 
-    public String getHeaderTitle() {
-        waitForVisibilityOfElement(dashboardHeader);
-        return dashboardHeader.getText(); // Will return "Dashboard"
-    }
+    @FindBy(xpath="//span[text()='PIM']")
+    public WebElement dashboardPagePim;
+
+    @FindBy(xpath = "//a[contains(@class, 'oxd-main-menu-item') and contains(@href, 'viewAdminModule') and .//span[text()='Admin']]")
+    public WebElement dashboardAdminOption;
+
+
 }

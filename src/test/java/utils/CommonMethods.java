@@ -1,12 +1,10 @@
 package utils;
 
 import io.cucumber.java.Scenario;
-import junit.framework.Assert;
+import io.cucumber.java.en.When;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,10 +22,10 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.Objects;
 
+
 public class CommonMethods extends PageInitializer {
 
     private static WebDriverWait wait;
-    public static String previousEmployeeId = null;
 
     public void openBrowser() {
 
@@ -79,6 +77,12 @@ public class CommonMethods extends PageInitializer {
     public void setValue(WebElement element, String value) {
         waitForElementToBeClickable(element);
         element.clear();
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            element.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        } else {
+            element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        }
+        element.sendKeys(Keys.BACK_SPACE);
         element.sendKeys(value);
     }
 
@@ -101,21 +105,6 @@ public class CommonMethods extends PageInitializer {
     public void waitForVisibilityOfElement(WebElement element) {
         wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(Constants.EXPLICIT_WAIT));
         getWait().until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public void getValidationMessage(String expectedMessage) {
-
-        String actualMessage = null;
-        if (expectedMessage.equalsIgnoreCase("Required")) {
-            waitForVisibilityOfElement(loginPage.requiredMessages.getFirst());
-            actualMessage = loginPage.requiredMessages.getFirst().getText();
-            Assert.assertEquals("Login validation mismatch!", actualMessage, expectedMessage);
-        }
-        else if (expectedMessage.equalsIgnoreCase("Invalid credentials")) {
-            waitForVisibilityOfElement(loginPage.invalidCredentialMessage);
-            actualMessage = loginPage.invalidCredentialMessage.getText();
-            Assert.assertEquals("Login validation mismatch!", actualMessage, expectedMessage);
-        }
     }
 
     public void closeBrowser(Scenario scenario) {
@@ -184,4 +173,64 @@ public class CommonMethods extends PageInitializer {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
+
+    public void selectCustomDropdownValue(WebElement dropdownField, String optionText) {
+        // 1. Force execution safety by waiting for the dropdown wrapper to become clickable
+        waitForElementToBeClickable(dropdownField);
+        click(dropdownField);
+
+        // 2. Build the multi-attribute sure-shot selector dynamically
+        By optionLocator = By.xpath("//div[@role='listbox']//div[contains(@class, 'oxd-select-option') and contains(., '" + optionText + "')]");
+
+        // 3. Find and click the target choice row element directly
+        WebElement targetingRow = DriverFactory.getDriver().findElement(optionLocator);
+        click(targetingRow);
+    }
+
+    public void waitForVisibility(WebElement element) {
+        wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void getValidationMessage(String expectedMessage) {
+
+        String actualMessage = null;
+
+        if (expectedMessage.equalsIgnoreCase("Required")) {
+            if (Objects.requireNonNull(DriverFactory.getDriver().getCurrentUrl()).contains("/login")) {
+                waitForVisibility(loginPage.requiredMessages.getFirst());
+                actualMessage = loginPage.requiredMessages.getFirst().getText();
+                org.junit.Assert.assertEquals("Login validation mismatch!", expectedMessage, actualMessage);
+            }
+            else if (DriverFactory.getDriver().getCurrentUrl().contains("/pim/addEmployee")){
+                waitForVisibility(addEmployeePage.addEmployeeRequiredMessage.get(0));
+
+                // CASE A: Both First Name AND Last Name fields are empty (Size will be 2)
+                if (addEmployeePage.addEmployeeRequiredMessage.size() == 2) {
+                    String firstNameError = addEmployeePage.addEmployeeRequiredMessage.get(0).getText();
+                    String lastNameError = addEmployeePage.addEmployeeRequiredMessage.get(1).getText();
+                    // Assert both items dynamically in one step
+                    org.junit.Assert.assertEquals("First name validation missing!", expectedMessage, firstNameError);
+                    org.junit.Assert.assertEquals("Last name validation missing!", expectedMessage, lastNameError);
+                    actualMessage = expectedMessage;
+                }
+                else {
+                    actualMessage = addEmployeePage.addEmployeeRequiredMessage.getFirst().getText();
+                    org.junit.Assert.assertEquals("Employee name field validation mismatch!", expectedMessage, actualMessage);
+                }
+            }
+        }
+        else if (expectedMessage.equalsIgnoreCase("Invalid credentials")) {
+            waitForVisibility(loginPage.invalidCredentialMessage);
+            actualMessage = loginPage.invalidCredentialMessage.getText();
+            org.junit.Assert.assertEquals("Login validation mismatch!", expectedMessage, actualMessage);
+        }
+        else if (expectedMessage.equalsIgnoreCase("Employee Id already exists")) {
+            waitForVisibility(addEmployeePage.addEmployeeEmployeeIdExists);
+            actualMessage = addEmployeePage.addEmployeeEmployeeIdExists.getText();
+            System.out.println(actualMessage);
+            Assert.assertEquals("Employee Id validation mismatch!", expectedMessage, actualMessage);
+        }
+    }
+
 }

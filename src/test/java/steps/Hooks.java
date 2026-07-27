@@ -5,16 +5,17 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import utils.CommonMethods;
 
-public class Hooks extends CommonMethods {
+public class Hooks  {
 
+    CommonMethods common = new CommonMethods();
     @Before
     public void browserSetup()  {
-        openBrowser();
-        openWebApplication();
+        common.openBrowser();
+        common.openWebApplication();
     }
 
     @After
     public void tearDown(Scenario scenario) {
-        closeBrowser(scenario);
+        common.closeBrowser(scenario);
     }
 }

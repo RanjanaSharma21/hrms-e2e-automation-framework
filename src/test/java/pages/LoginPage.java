@@ -25,12 +25,12 @@ public class LoginPage extends BasePage {
     public WebElement invalidCredentialMessage;
 
 
-    public String getErrorMessage() {
-        if(alertMessage.isDisplayed()) {
-            return alertMessage.getText();
-        }
-        return requiredMessages.getFirst().getText();
-    }
+    //public String getErrorMessage() {
+    //  if(alertMessage.isDisplayed()) {
+    //    return alertMessage.getText();
+    // }
+    //return requiredMessages.getFirst().getText();
+   // }
 
 
 
