@@ -26,12 +26,12 @@ import org.junit.runner.RunWith;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "rerun:target/failed.txt"
         },
-        dryRun = false,
+        dryRun = false
 
         //tags = "  @addpersonal"
         //tags = "@delemp"
         //tags = "@addcontact"
-        tags = "@addemp1 or @delemp" // @adduser1" // or  @addpersonal1  or @addcontact or @addprofile or @searchemp"
+        //tags = "@addemp1 or @searchemp or @adduser1 or @addpersonal1  or @addcontact" //@delemp" // @adduser1" // or  @addpersonal1  or @addcontact or @addprofile or @searchemp"
         //tags = "@addcontact"
         //tags = "@addpersonal"
         //tags = "@addprofile"

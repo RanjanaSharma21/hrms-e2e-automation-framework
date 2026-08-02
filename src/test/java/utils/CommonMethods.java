@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -62,12 +63,12 @@ public class CommonMethods extends PageInitializer {
 
     public void openWebApplication() {
 
-        String weburl = ConfigReader.getProperty("weburl");
-        if (weburl == null || weburl.isEmpty()) {
+        String webUrl = ConfigReader.getProperty("webUrl");
+        if (webUrl == null || webUrl.isEmpty()) {
             throw new RuntimeException("Webapp not defined in ConfigReader");
         }
 
-        DriverFactory.getDriver().get(weburl);
+        DriverFactory.getDriver().get(webUrl);
         DriverFactory.getDriver().manage().window().maximize();
         DriverFactory.getDriver().manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(Constants.IMPLICIT_WAIT));
 
@@ -84,6 +85,19 @@ public class CommonMethods extends PageInitializer {
         }
         element.sendKeys(Keys.BACK_SPACE);
         element.sendKeys(value);
+    }
+
+    public void setReactValue(WebElement element, String value) {
+
+        waitForElementToBeClickable(element);
+
+        element.click();
+
+        element.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        element.sendKeys(Keys.BACK_SPACE);
+        element.sendKeys(value);
+
+        element.sendKeys(Keys.TAB);
     }
 
     public void waitForElementToBeClickable(WebElement element) {

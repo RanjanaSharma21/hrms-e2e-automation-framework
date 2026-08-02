@@ -10,12 +10,13 @@ Feature: Add an employee
 
   @addemp1
   Scenario: Add employee with system generated employee ID
-    When user enters first name "Veda"
-    And user enters middle name "M"
-    And user enters last name "Joshi"
+    When user enters first name "Palash"
+    And user enters middle name "R"
+    And user enters last name "Sheth"
     And system generates unique employee id
     And user clicks on Add Employee save button
-    Then employee is added successfully
+    Then employee is added in the application successfully
+    And employee is added in the database successfully
 
   @addemp
   Scenario: Add employee with user generated unique employee ID
@@ -24,14 +25,15 @@ Feature: Add an employee
     And user enters last name "Agnihotri"
     And user enters employee ID "unique id"
     And user clicks on Add Employee save button
-    Then employee is added successfully
+    Then employee is added in the application successfully
 
   @addemp
   Scenario: Add employee without middle name
     When user enters first name "Aryan"
     And user enters last name "Pradhan"
     And user clicks on Add Employee save button
-    Then employee is added successfully
+    Then employee is added in the application successfully
+
 
   @negative  @addemp
   Scenario: Add employee with existing employee ID

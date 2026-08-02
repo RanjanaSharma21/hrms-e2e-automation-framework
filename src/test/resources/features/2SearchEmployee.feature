@@ -12,12 +12,14 @@ Feature: Employee Search Management
     When user enters the dynamically saved employee id into the ID filter field
     And user clicks on User Management Search button
     Then the system returns exactly 1 matching record row in the data grid
+    And the database returns exactly 1 matching record row in the data grid
 
   @searchemp @regression @smoke
   Scenario: Search for employee using dynamic full name
   When user enters employee name filter as "dynamic_full_name"
   And user clicks on User Management Search button
   Then the system should display matching rows containing "dynamic_full_name" in the grid
+  And the database should return matching rows in the grid
 
 
 

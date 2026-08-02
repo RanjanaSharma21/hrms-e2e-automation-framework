@@ -9,14 +9,15 @@ Feature: User updates personal details
   @addpersonal1
   Scenario: User updates personal details successfully
     When user clicks on My Info option
-    And user enters firstname "John"
-    And user enters middlename "K"
-    And user enters lastname "Smith"
-    And user selects nationality as "Canadian"
+    And user selects nationality as "Indian"
     And user selects marital status as "Single"
     And user selects gender as "Male"
+    And user enters firstname "Aryan"
+    And user enters middlename "G"
+    And user enters lastname "Parikh"
     And user clicks on save button
-    Then user is able to update personal details successfully
+    Then user is able to update personal details in the application successfully
+    And user is able to update personal details in the database successfully
 
   @negative
   Scenario Outline: User cannot update personal details without required fields

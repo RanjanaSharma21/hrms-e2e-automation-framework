@@ -1,5 +1,7 @@
 package steps;
 
+import database.EmployeeDB;
+import database.UserDB;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -8,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
+
+import java.sql.ResultSet;
 import java.util.Arrays;
 
 import java.time.Duration;
@@ -28,12 +32,13 @@ public class AddUsernameSteps extends CommonMethods {
     @When("user inputs the dynamically saved employee name into the search field")
     public void user_inputs_the_dynamically_saved_employee_name_into_the_search_field() {
         waitForVisibilityOfElement(addUsernamePage.employeeNameField);
-        if (TestData.employeeName == null || TestData.employeeName.isEmpty()) {
+        if (TestData.firstName == null || TestData.firstName.isEmpty()) {
             throw new IllegalStateException("❌ State Error: " +
                     "current username is null! " +
                     "Make sure the Add Employee test saves the name before running this scenario.");
         }
-        setValue(addUsernamePage.employeeNameField, TestData.employeeName);
+        String nm = TestData.firstName + " " + TestData.middleName + " " + TestData.lastName;
+        setValue(addUsernamePage.employeeNameField, nm);
     }
     @When("user selects the matching employee name from the auto-complete hints box")
     public void user_selects_the_matching_employee_name_from_the_auto_complete_hints_box() {
@@ -58,7 +63,7 @@ public class AddUsernameSteps extends CommonMethods {
     @When("user enters a unique username into the form")
     public void user_enters_a_unique_username_into_the_form() {
             String processedUsername;
-            processedUsername = TestData.employeeName.substring(0, Math.min(3, TestData.employeeName.length()))
+            processedUsername = TestData.firstName.substring(0, Math.min(3, TestData.firstName.length()))
                     + DataGenerator.uniqueUsername(ConfigReader.getProperty("username_prefix"));
             addUsernamePage.usernameField.clear();
             setValue(addUsernamePage.usernameField, processedUsername);
@@ -155,5 +160,15 @@ public class AddUsernameSteps extends CommonMethods {
             actualErrorText = addUsernamePage.passwordErrorTag.getText().trim();
             Assert.assertEquals("Validation text mismatch!", expectedError, actualErrorText);
         }
+    }
+
+    @Then("user credential is added in the database successfully")
+    public void user_credential_is_added_in_the_database_successfully() throws Exception {
+        DBUtility.connect();
+        ResultSet rs = UserDB.getUser(TestData.essUsername);
+        Assert.assertTrue(rs.next());
+        Assert.assertEquals(TestData.essUsername,
+                rs.getString("user_name"));
+        DBUtility.close();
     }
 }

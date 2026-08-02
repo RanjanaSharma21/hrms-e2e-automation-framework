@@ -19,8 +19,9 @@ Feature: Add Username and User Account Configuration
     And user sets a secure password meeting all character constraints
     And user clicks on Add User Save button
     Then the user account should be searchable by username on the User Management page
+    And user credential is added in the database successfully
 
-   @negative   @adduser1
+   @negative
   Scenario Outline: Verify constraint validations for form fields
     When user enters Employee Name as "<empName>"
     And user selects User Role as "<role>" from the dropdown list

@@ -1,20 +1,17 @@
 package steps;
 
+import database.EmployeeDB;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-//import junit.framework.Assert;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.*;
 import utils.DriverFactory;
-import utils.CommonMethods;
-import utils.Constants;
-import utils.DriverFactory;
-import utils.TestData;
-import org.testng.Assert;
 
-
+import java.sql.ResultSet;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -39,83 +36,16 @@ public class DeleteEmployeeSteps extends CommonMethods {
     }
     @Then("employee is deleted successfully from the application")
     public void employee_is_deleted_successfully_from_the_application() {
-
         Assert.assertEquals(
-                deleteEmployeePage.employeeRows.size(),
+                "Employee was not deleted. Employee row is still displayed.",
                 0,
-                "Employee was not deleted. Employee row is still displayed."
+                deleteEmployeePage.employeeRows.size()
         );
-
-        /*WebDriverWait wait = new WebDriverWait(
-                DriverFactory.getDriver(),
-                Duration.ofSeconds(10)
-        );
-        //wait.until(
-          //      ExpectedConditions.invisibilityOf(
-            //            deleteEmployeePage.employeeRow
-              //  )
-        //);
-
-        wait.until(
-                ExpectedConditions.visibilityOf(
-                        deleteEmployeePage.successMessage
-                )
-        );
-        Assert.assertTrue(
-                deleteEmployeePage.successMessage.isDisplayed(),
-                "Success message was not displayed after employee deletion."
-        );
-
-       WebElement toast = wait.until(
-                ExpectedConditions.visibilityOf(
-                        deleteEmployeePage.toastMessageWrapper
-                )
-        );
-        Assert.assertTrue(
-                toast.isDisplayed(),
-                "Success message was not displayed after employee deletion."
-        );
-
-        // 3. Now wait for the employee row to disappear
-        wait.until(
-                ExpectedConditions.invisibilityOf(
-                        deleteEmployeePage.employeeRow
-                )
-        );
-
-        // 4. Verify no employee row remains
-        Assert.assertEquals(
-                deleteEmployeePage.employeeRows.size(),
-                0,
-                "Employee was not deleted. Employee row is still displayed."
-        );
-        wait.until(
-                ExpectedConditions.invisibilityOf(deleteEmployeePage.employeeRow)
-        );
-        Assert.assertEquals(
-                deleteEmployeePage.employeeRows.size(),
-                0,
-                "Employee was not deleted. Employee row is still displayed."
-        );
-        //wait.until(
-        //        ExpectedConditions.visibilityOf(deleteEmployeePage.successMessage)
-        //);
-        wait.until(
-                ExpectedConditions.visibilityOf(deleteEmployeePage.toastMessageWrapper)
-        );
-        Assert.assertTrue(
-                deleteEmployeePage.toastMessageWrapper.isDisplayed(),
-                "Success message was not displayed after employee deletion."
-        );*/
     }
     @Then("employee should not exist in the database")
-    public void employee_should_not_exist_in_the_database() {
-
+    public void employee_should_not_exist_in_the_database() throws Exception {
+        DBUtility.connect();
+        Assert.assertTrue(EmployeeDB.employeeDeleted(TestData.employeeId));
+        DBUtility.close();
     }
-
-
-
-
-
-
 }

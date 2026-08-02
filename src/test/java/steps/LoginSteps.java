@@ -33,8 +33,6 @@ public class LoginSteps extends CommonMethods {
                 essUsername = "Ranjana.Sharma";
                 essPassword = "SyntaxUser@2026";
             }
-
-            System.out.println("Attempting login with ESS Username: [" + essUsername + "]");
             setValue(loginPage.username, TestData.essUsername);
             setValue(loginPage.password, TestData.essPassword);
         }

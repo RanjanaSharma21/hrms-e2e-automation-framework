@@ -1,5 +1,6 @@
 package steps;
 
+import database.EmployeeDB;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -9,14 +10,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.SearchEmployeePage;
 import utils.CommonMethods;
+import utils.DBUtility;
 import utils.DriverFactory;
 import utils.TestData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.sql.ResultSet;
 import java.util.List;
 import java.time.Duration;
 
-import static utils.TestData.employeeName;
+import static utils.TestData.firstName;
 
 public class SearchEmployeeSteps extends CommonMethods {
 
@@ -59,7 +63,7 @@ public class SearchEmployeeSteps extends CommonMethods {
     @When("user enters employee name filter as {string}")
     public void user_enters_employee_name_filter_as(String searchString) {
         waitForVisibilityOfElement(searchEmployeePage.searchFormEmployeeNameField);
-        String baseFullName = employeeName;
+        String baseFullName = TestData.firstName + " " + TestData.lastName;
         if (baseFullName == null || baseFullName.trim().isEmpty()) {
             throw new IllegalStateException("❌ State Error: CommonMethods.currentEmpName is null! Run employee generation first.");
         }
@@ -110,12 +114,12 @@ public class SearchEmployeeSteps extends CommonMethods {
                     .get(i);
             String rowText = freshRow.getText();
             System.out.println("Checking row: " + rowText);
-            if (rowText.toLowerCase().contains(employeeName.toLowerCase())) {
+            if (rowText.toLowerCase().contains(firstName.toLowerCase())) {
                 found = true;
                 break;
             }
         }
-        Assert.assertTrue("Employee [" + employeeName + "] was not found in grid", found);
+        Assert.assertTrue("Employee [" + firstName + "] was not found in grid", found);
     }
 
     @When("user enters an invalid search parameter {string} as {string}")
@@ -153,4 +157,19 @@ public class SearchEmployeeSteps extends CommonMethods {
         }
         throw new RuntimeException("Element remained stale after retries");
     }
+
+    @Then("the database returns exactly {int} matching record row in the data grid")
+    public void the_database_returns_exactly_matching_record_row_in_the_data_grid(Integer int1) throws Exception {
+        DBUtility.connect();
+        Assert.assertTrue(EmployeeDB.employeeExists(TestData.employeeId));
+        DBUtility.close();
+    }
+
+    @Then("the database should return matching rows in the grid")
+    public void the_database_should_return_matching_rows_in_the_grid() throws Exception {
+        DBUtility.connect();
+        Assert.assertTrue(EmployeeDB.getEmployeesByName(firstName, TestData.lastName));
+        DBUtility.close();
+    }
+
 }
