@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports.html",
-                "json:target/cucumber.json",
+                "json:target/jsonReports/cucumber.json",
                 "junit:target/cucumber.xml",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "rerun:target/failed.txt"
