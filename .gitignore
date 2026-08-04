@@ -5,3 +5,5 @@ target/
 test-output/
 *.class
 .idea/
+.DS_Store
+**/.DS_Store
