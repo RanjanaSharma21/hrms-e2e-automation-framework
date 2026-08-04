@@ -3,7 +3,7 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static utils.DBUtility.executeQuery;
+import static database.DBUtility.executeQuery;
 
 public class UserDB {
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <theme>dark</theme> <!-- Change to 'standard' for light mode -->
+    <encoding>UTF-8</encoding>
+    <protocol>https</protocol>
+    <timelineEnabled>true</timelineEnabled>
+    <scripts></scripts>
+    <styles></styles>
+    <documentTitle>SyntaxHRM API Automation Report</documentTitle>
+    <reportName>Regression Testing Metrics</reportName>
+</configuration>

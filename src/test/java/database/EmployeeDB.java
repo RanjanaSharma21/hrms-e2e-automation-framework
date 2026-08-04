@@ -3,7 +3,7 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static utils.DBUtility.executeQuery;
+import static database.DBUtility.executeQuery;
 /*
 Following Single Responsibility Principle (SRP):
 DBUtility manages database connections and query execution.

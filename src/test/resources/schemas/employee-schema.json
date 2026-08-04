@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org",
+  "type": "object",
+  "required": ["data", "meta", "rels"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["empNumber", "firstName", "lastName", "employeeId", "gender"],
+      "properties": {
+        "empNumber": { "type": "integer" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "middleName": { "type": ["string", "null"] },
+        "employeeId": { "type": "string" },
+        "gender": { "type": "integer" },
+        "birthday": { "type": "string", "format": "date" }
+      }
+    },
+    "meta": { "type": "array" },
+    "rels": { "type": "array" }
+  }
+}

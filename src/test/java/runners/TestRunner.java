@@ -9,13 +9,13 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = {
-                "src/test/resources/features/1AddEmployee.feature",
-                "src/test/resources/features/2SearchEmployee.feature",
-                "src/test/resources/features/3AddUsername.feature",
-                "src/test/resources/features/4UpdatePersonalDetail.feature",
-                "src/test/resources/features/5UpdateContactDetail.feature",
-                "src/test/resources/features/6AddProfilePicture.feature",
-                "src/test/resources/features/7DeleteEmployee.feature"
+                "src/test/resources/features/ui/1AddEmployee.feature",
+                "src/test/resources/features/ui/2SearchEmployee.feature",
+                "src/test/resources/features/ui/3AddUsername.feature",
+                "src/test/resources/features/ui/4UpdatePersonalDetail.feature",
+                "src/test/resources/features/ui/5UpdateContactDetail.feature",
+                "src/test/resources/features/ui/6AddProfilePicture.feature",
+                "src/test/resources/features/ui/7DeleteEmployee.feature"
         },
         glue = "steps",
         plugin = {

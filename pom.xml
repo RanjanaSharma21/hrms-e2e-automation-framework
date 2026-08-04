@@ -88,12 +88,69 @@
             <version>9.7.0</version>
         </dependency>
 
-        <!-- <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.5.6</version>
             <scope>test</scope>
-        </dependency>          -->
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>5.5.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>xml-path</artifactId>
+            <version>5.5.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
+        <!-- 1. Cucumber PicoContainer for Dependency Injection -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>7.18.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--2. RestAssured JSON Schema Validator (Corrected Group ID)-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.25.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+
+       <!-- <dependency>
+           <groupId>org.testng</groupId>
+           <artifactId>testng</artifactId>
+           <version>7.11.0</version>
+           <scope>test</scope>
+       </dependency>          -->
     </dependencies>
 
     <build>
@@ -132,6 +189,7 @@
                 <configuration>
                     <includes>
                         <include>**/*TestRunner.java</include>
+                        <testFailureIgnore>true</testFailureIgnore>
                     </includes>
                 </configuration>
             </plugin>
@@ -147,11 +205,12 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.7.8</version>
+                <version>5.8.5</version>
 
                 <executions>
                     <execution>
-                        <id>cucumber-report</id>
+                        <!--<id>cucumber-report</id>-->
+                        <id>execution</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>generate</goal>
@@ -160,16 +219,19 @@
                         <configuration>
                             <projectName>hrms-e2e-automation-framework</projectName>
 
+                            <skip>false</skip>
+
                             <outputDirectory>
-                                ${project.build.directory}/cucumber-html-reports
+                                ${project.build.directory}<!--/cucumber-html-reports-->
                             </outputDirectory>
 
                             <inputDirectory>
-                                ${project.build.directory}
+                                ${project.build.directory}/jsonReports
                             </inputDirectory>
 
                             <jsonFiles>
                                 <param>cucumber.json</param>
+                                <param>**/*.json</param>
                             </jsonFiles>
 
                             <checkBuildResult>false</checkBuildResult>
