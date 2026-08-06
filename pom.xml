@@ -188,8 +188,8 @@
                 <version>3.2.5</version>
                 <configuration>
                     <includes>
-                        <include>**/*TestRunner.java</include>
-                        <testFailureIgnore>true</testFailureIgnore>
+                        <include>**/*Runner.java</include>
+                        <testFailureIgnore>false</testFailureIgnore>
                     </includes>
                 </configuration>
             </plugin>
@@ -222,7 +222,7 @@
                             <skip>false</skip>
 
                             <outputDirectory>
-                                ${project.build.directory}<!--/cucumber-html-reports-->
+                                ${project.build.directory}/cucumber-html-reports
                             </outputDirectory>
 
                             <inputDirectory>
@@ -230,8 +230,8 @@
                             </inputDirectory>
 
                             <jsonFiles>
-                                <param>cucumber.json</param>
-                                <param>**/*.json</param>
+                                <param>api-cucumber.json</param>
+                                <param>ui-cucumber.json</param>
                             </jsonFiles>
 
                             <checkBuildResult>false</checkBuildResult>

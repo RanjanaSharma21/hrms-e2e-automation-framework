@@ -16,13 +16,13 @@ Feature: Employee CRUD API Operations
     Given a request is prepared to get an employee
     When a GET call is made to get a created employee
     Then the status code for this request is 200
-    And the employee number "data.empNumber" must match the global variable employee number
+    And the employee number "data.empNumber" must match the stored employee number
 
   # 3. UPDATE LIFECYCLE
     Given a request is prepared to update an employee
     When a PUT call is made to update an employee
     Then the status code for this request is 200
-    And the employee number "data.empNumber" must match the global variable employee number
+    And the employee number "data.empNumber" must match the stored employee number
 
   # 4. DELETE LIFECYCLE
     Given a request is prepared to delete an employee

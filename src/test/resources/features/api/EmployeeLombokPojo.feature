@@ -6,7 +6,7 @@ Feature: Employee API using POJO serialization
 
   @lombokpojo
   Scenario Outline: Create an employee using lombok pojo dynamic JSON request body
-    Given a request is prepared to create an employee using lombok pojo dynamic JSON format with "<firstName>", "<lastName>", "<middleName>", "<gender>", "<birthday>", "<jobTitle>"
+    Given a request is prepared to create an employee using lombok pojo format with "<firstName>", "<lastName>", "<middleName>", "<gender>", "<birthday>", "<jobTitle>"
     When a POST call is made to create an employee
     Then the status code for this request is 201
     And the POJO request body must match the response body

@@ -2,6 +2,8 @@ package database;
 
 
 
+import ui.utils.ConfigReader;
+
 import java.sql.*;
 
 /*
@@ -27,9 +29,9 @@ public class DBUtility {
 
     public static void connect() throws Exception {
         connection = DriverManager.getConnection(
-                utils.common.ConfigReader.getProperty("dbUrl"),
-                utils.common.ConfigReader.getProperty("dbUserName"),
-                utils.common.ConfigReader.getProperty("dbUserPassword"));
+                ConfigReader.getProperty("dbUrl"),
+                ConfigReader.getProperty("dbUserName"),
+                ConfigReader.getProperty("dbUserPassword"));
     }
 
     // Execute SELECT query
