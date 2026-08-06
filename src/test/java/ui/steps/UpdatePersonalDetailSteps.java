@@ -4,6 +4,7 @@ import database.EmployeeDB;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.utils.CommonMethods;
@@ -13,6 +14,8 @@ import ui.utils.TestData;
 
 import java.sql.ResultSet;
 import java.time.Duration;
+
+
 
 public class UpdatePersonalDetailSteps extends CommonMethods {
 
@@ -72,7 +75,14 @@ public class UpdatePersonalDetailSteps extends CommonMethods {
     @When("user clicks on save button")
     public void user_clicks_on_save_button() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(updatePersonalDetailPage.personalDetailsSaveButton)).click();
+        //wait.until(ExpectedConditions.elementToBeClickable(updatePersonalDetailPage.personalDetailsSaveButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(updatePersonalDetailPage.personalDetailsSaveButton));
+        ((JavascriptExecutor) DriverFactory.getDriver())
+                .executeScript("arguments[0].scrollIntoView(true);", updatePersonalDetailPage.personalDetailsSaveButton);
+
+        updatePersonalDetailPage.personalDetailsSaveButton.click();
+
+
     }
 
     @Then("user is able to update personal details in the application successfully")

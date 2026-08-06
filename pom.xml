@@ -222,7 +222,7 @@
                             <skip>false</skip>
 
                             <outputDirectory>
-                                ${project.build.directory}/cucumber-html-reports
+                                ${project.build.directory}/ <!--cucumber-html-reports-->
                             </outputDirectory>
 
                             <inputDirectory>
