@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -205,7 +206,84 @@ public class CommonMethods extends PageInitializer {
 
     public void getValidationMessage(String expectedMessage) {
 
-        String actualMessage = null;
+        if (expectedMessage.equalsIgnoreCase("Required")) {
+
+            String currentUrl = DriverFactory.getDriver().getCurrentUrl();
+
+            if (currentUrl.contains("/login")) {
+
+                waitForVisibility(loginPage.requiredMessages.getFirst());
+                String actualMessage = loginPage.requiredMessages.getFirst().getText();
+
+                Assert.assertEquals(
+                        "Login validation mismatch!",
+                        expectedMessage,
+                        actualMessage
+                );
+
+            } else if (currentUrl.contains("/pim/addEmployee")) {
+
+                By requiredMessageLocator =
+                        By.xpath("//span[contains(@class,'oxd-input-field-error-message') and text()='Required']");
+
+                WebDriverWait wait = new WebDriverWait(
+                        DriverFactory.getDriver(),
+                        Duration.ofSeconds(10)
+                );
+
+                wait.until(ExpectedConditions.presenceOfElementLocated(requiredMessageLocator));
+
+                List<WebElement> requiredMessages =
+                        DriverFactory.getDriver().findElements(requiredMessageLocator);
+
+                System.out.println("Number of Required messages displayed: " + requiredMessages.size());
+
+                Assert.assertTrue(
+                        "Required validation message is not displayed",
+                        requiredMessages.size() > 0
+                );
+
+                for (WebElement message : requiredMessages) {
+
+                    Assert.assertEquals(
+                            "Employee field validation mismatch!",
+                            expectedMessage,
+                            message.getText()
+                    );
+                }
+            }
+
+        } else if (expectedMessage.equalsIgnoreCase("Invalid credentials")) {
+
+            waitForVisibility(loginPage.invalidCredentialMessage);
+
+            Assert.assertEquals(
+                    "Login validation mismatch!",
+                    expectedMessage,
+                    loginPage.invalidCredentialMessage.getText()
+            );
+
+        } else if (expectedMessage.equalsIgnoreCase("Employee Id already exists")) {
+
+            waitForVisibility(addEmployeePage.addEmployeeEmployeeIdExists);
+
+            Assert.assertEquals(
+                    "Employee Id validation mismatch!",
+                    expectedMessage,
+                    addEmployeePage.addEmployeeEmployeeIdExists.getText()
+            );
+        }
+
+
+
+
+
+
+
+
+
+
+        /*String actualMessage = null;
 
         if (expectedMessage.equalsIgnoreCase("Required")) {
             if (Objects.requireNonNull(DriverFactory.getDriver().getCurrentUrl()).contains("/login")) {
@@ -241,7 +319,7 @@ public class CommonMethods extends PageInitializer {
             actualMessage = addEmployeePage.addEmployeeEmployeeIdExists.getText();
             System.out.println(actualMessage);
             Assert.assertEquals("Employee Id validation mismatch!", expectedMessage, actualMessage);
-        }
+        }*/
     }
 
 }

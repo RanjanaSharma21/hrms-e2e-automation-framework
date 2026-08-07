@@ -79,9 +79,12 @@ public class AddUsernameSteps extends CommonMethods {
     @Then("the user account should be searchable by username on the User Management page")
     public void the_user_account_should_be_searchable_by_username_on_the_user_management_page() {
         waitForVisibilityOfElement(addUsernamePage.systemUsersHeader);
+        System.out.println("Current URL = " + DriverFactory.getDriver().getCurrentUrl());
+        System.out.println("Page Title = " + DriverFactory.getDriver().getTitle());
         WebElement userManagementSearchField = DriverFactory.getDriver().findElement(
                 By.xpath("//label[text()='Username']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
         setValue(userManagementSearchField, TestData.essUsername);
+        System.out.println("Username created = " + TestData.essUsername);
         WebElement searchButton = DriverFactory.getDriver().findElement(
                 By.xpath("//button[@type='submit' or normalize-space()='Search']"));
         click(searchButton);

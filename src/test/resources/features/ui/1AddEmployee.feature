@@ -8,11 +8,11 @@ Feature: Add an employee
     And user clicks on PIM option
     And user clicks on Add Employee option
 
-  @addemp1
+  @addemp1  @addemp
   Scenario: Add employee with system generated employee ID
-    When user enters first name "Palash"
-    And user enters middle name "R"
-    And user enters last name "Sheth"
+    When user enters first name "Namrata99"
+    And user enters middle name "A"
+    And user enters last name "Avasthi"
     And system generates unique employee id
     And user clicks on Add Employee save button
     Then employee is added in the application successfully
@@ -44,7 +44,7 @@ Feature: Add an employee
     And user clicks on Add Employee save button
     Then system displays error message "Employee Id already exists"
 
-  @negative @addemp
+  @negativenm @addemp
   Scenario Outline: Add employee with missing mandatory fields
     When user enters first name "<firstname>"
     And user enters last name "<lastname>"
@@ -54,6 +54,6 @@ Feature: Add an employee
     Examples:
 
       | firstname | lastname |
-      |           | Sharma   |
-      | Ranjana   |          |
+      |           | Lastname |
+      | Firstname |          |
       |           |          |

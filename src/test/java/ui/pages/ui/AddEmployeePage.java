@@ -35,7 +35,7 @@ public class AddEmployeePage extends BasePage {
     @FindBy(xpath = "(//span[contains(@class, 'oxd-input-field-error-message') and text()='Required'])[2]")
     public WebElement addEmployeeRequiredlnm;
 
-    @FindBy(xpath = "//span[contains(@class, 'oxd-input-field-error-message')]")
+    @FindBy(xpath = "//span[contains(@class, 'oxd-input-field-error-message') or contains(@class, 'oxd-input-group__message')]")
     public List<WebElement> addEmployeeRequiredMessage;
 
     @FindBy(xpath = "//div[contains(.,'Employee Full Name')]//div[contains(@class,'--name-grouped-field')]/div[1]//span")
@@ -55,6 +55,9 @@ public class AddEmployeePage extends BasePage {
 
     @FindBy(xpath = "//div[contains(@class,'oxd-toast-container')]")
     public WebElement toastMessageWrapper;
+
+    @FindBy(xpath = "//span[contains(@class,'oxd-input-field-error-message') and text()='Required']")
+    public List<WebElement> addEmployeeRequiredMsg;
 
     public AddEmployeePage() {
         PageFactory.initElements(DriverFactory.getDriver(), this);

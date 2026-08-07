@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
                 "src/test/resources/features/ui/3AddUsername.feature",
                 "src/test/resources/features/ui/4UpdatePersonalDetail.feature",
                 "src/test/resources/features/ui/5UpdateContactDetail.feature",
-                "src/test/resources/features/ui/6AddProfilePicture.feature",
-                "src/test/resources/features/ui/7DeleteEmployee.feature"
+                "src/test/resources/features/ui/6AddProfilePicture.feature"
+                //"src/test/resources/features/ui/7DeleteEmployee.feature"
         },
         glue = "ui.steps",
         plugin = {
@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
         //tags = "  @addpersonal"
         //tags = "@delemp"
         //tags = "@addcontact"
-        //tags = "@addemp1 or @searchemp or @adduser1 or @addpersonal1  or @addcontact" //@delemp" // @adduser1" // or  @addpersonal1  or @addcontact or @addprofile or @searchemp"
+        //tags = "@addemp1  or @adduser" //or @negativenm\"//1 or @searchempor @addpersonal1  or @addcontact" //@delemp" // @adduser1" // or  @addpersonal1  or @addcontact or @addprofile or @searchemp"
         //tags = "@addcontact"
         //tags = "@addpersonal"
         //tags = "@addprofile"

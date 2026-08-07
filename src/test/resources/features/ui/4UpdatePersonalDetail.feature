@@ -12,9 +12,9 @@ Feature: User updates personal details
     And user selects nationality as "Indian"
     And user selects marital status as "Single"
     And user selects gender as "Male"
-    And user enters firstname "Aryan"
-    And user enters middlename "G"
-    And user enters lastname "Parikh"
+    And user enters firstname "Ayushiii"
+    And user enters middlename "R"
+    And user enters lastname "Agnihotriii"
     And user clicks on save button
     Then user is able to update personal details in the application successfully
     And user is able to update personal details in the database successfully
@@ -30,6 +30,6 @@ Feature: User updates personal details
     Examples:
 
       | firstname     | lastname       | error               |
-      |               | Sharma         | Required            |
-      | Ranjana       |                | Required            |
+      |               | Lastname       | Required            |
+      | Firstname     |                | Required            |
       |               |                | Required            |

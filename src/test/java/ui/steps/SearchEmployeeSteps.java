@@ -111,7 +111,7 @@ public class SearchEmployeeSteps extends CommonMethods {
                     .findElements(rowLocator)
                     .get(i);
             String rowText = freshRow.getText();
-            System.out.println("Checking row: " + rowText);
+            //System.out.println("Checking row: " + rowText);
             if (rowText.toLowerCase().contains(firstName.toLowerCase())) {
                 found = true;
                 break;

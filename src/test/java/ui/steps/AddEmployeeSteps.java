@@ -7,10 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ui.utils.CommonMethods;
-import ui.utils.Constants;
-import ui.utils.DriverFactory;
-import ui.utils.TestData;
+import ui.utils.*;
 
 import java.sql.ResultSet;
 import java.time.Duration;
@@ -31,8 +28,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user enters first name {string}")
     public void user_enters_first_name(String firstName) {
-        //firstName = firstName + String.valueOf(System.currentTimeMillis()).substring(8);
-        setValue(addEmployeePage.addEmployeeFirstName, firstName);
+        setValue(addEmployeePage.addEmployeeFirstName, DataGenerator.uniqueFirstName(firstName));
         //TestData.firstName = addEmployeePage.addEmployeeFirstName.getAttribute("value");
 
     }
